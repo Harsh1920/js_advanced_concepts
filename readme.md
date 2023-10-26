@@ -171,3 +171,35 @@ console.log("Bind result:",newBindFunction());
 + Apply : binds the this value, invokes the function, and allows you to pass arguments as an array.
 
 + Bind : binds the this value, returns a new function, and allows you to pass in a list of arguments.
+
+## 5. Shallow Copy & Deep Copy
+
+Shallow copy means that only the first level of the object is copied. Deeper levels are referenced. Deep copy means that all levels of the object are copied. This is a true copy of the object.
+
+> The difference between a shallow copy and a deep copy is that a shallow copy only copies the top-level entries of an object, while a deep copy copies all levels of the object
+
+```js
+let addressObject = {
+  city: "Ahmedabad",
+  state: "Gujarat",
+};
+
+let person = {
+  name: "John",
+  address: addressObject,
+};
+
+// Two ways to make shallow copy:
+
+1> let shallowCopy = Object.assign({},addressObject);
+2> let shallowCopySpread = {...person};
+
+// Two ways to make deep copy:
+
+1> let deepCopy = JSON.parse(JSON.stringify(person));
+// Convert object into string and then back to object again..
+
+2> let newPerson = structuredClone(person);
+// It's an browser API in modern browser.
+
+```
