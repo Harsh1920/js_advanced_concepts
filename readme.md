@@ -203,3 +203,147 @@ let person = {
 // It's an browser API in modern browser.
 
 ```
+
+## 5. Async JavaScript - Callbacks, Promises & APIs, Async/await
+
+JavaScript itself is not asynchronous langauge it uses some API from browser or enviroment to achieve asynchronous behaviour.
+
+> JS executes synchronous code first then executes asynchronous.
+
+```js
+console.log("Start");
+setTimeout(() => {
+  console.log("I am settimeout, I always executes at the end.");
+}, 0);
+console.log("End");
+```
+
+Callback : A JavaScript callback is a function which is to be executed after another function has finished execution. A more formal definition would be - Any function that is passed as an argument to another function so that it can be executed in that other function is called as a callback function. 
+
+```js
+// Example of JS synchronous behaviour
+console.log("start");
+function importandAction(username) {
+  setTimeout(() => {
+    return `My name is ${username}`
+  }, 1000);
+}
+const message = importandAction("Hasrh");
+console.log(message); // Undefined
+console.log("End");
+
+// Solution:
+console.log("start");
+function importandAction2(username, cb) {
+  setTimeout(() => {
+    cb(`My name is ${username}`);
+  }, 1000);
+}
+const message2 = importandAction2("Harsh", (res)=>{
+  console.log(res); // My name is Harsh
+});
+console.log("End");
+```
+
+> Callback Hell (Pyramid of Doom)
+
+```js
+const msgww = importandAction("Harsh", function (msg) {
+  console.log(msg);
+  showAge(50, function (age) {
+    console.log(age);
+    showWeight("88 Kg", function (weight) {
+      console.log(weight);
+    });
+  });
+});
+```
+
+Promise API : A Promise is an object representing the eventual completion or failure of an asynchronous operation.
+
+```js
+console.log("start");
+
+const promiseResult = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    const result = false;
+    if (result) {
+      resolve("Hash is the best programmer.");
+    } else {
+      reject(new Error("Hash needs to practise more."));
+    }
+  }, 2000);
+});
+
+promiseResult.then((res) => {
+    console.log(res);
+}).catch((err) => {
+    console.log(err);
+});
+
+console.log("end");
+```
+
++ Promise.all() : Returns a array of fulfilled promises, works only if promises resolves. If one of them fail, it fails all the other promises. Only work when all promises are fullfiled.
+
+```js
+Promise.all([printName("Harsh"), printAge(26), printWeight("88 KG")])
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log("Error: Promises failed", err);
+  });
+```
++ Promise.race() : Returns the first rejected or resolved promise. Works when any one of promises are fullfiled or rejected
+
+```js
+Promise.race([printName("Jinal"), printAge(26), printWeight("65 KG")])
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log("Error: Promises failed", err);
+  });
+```
+
++ Promise.allSettled() : Gives list of all the promises failed and resolved..
+
+```js
+Promise.allSettled([printName("Jinal"), printAge(26), printWeight("88 KG")])
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log("Error: Promises failed", err);
+  });
+```
+
++ Promise.any() : Returns only one first resolved promises. If all promises are rejected then it gives an error.
+
+```js
+Promise.any([printName("Jinal"), printAge(26), printWeight("88 KG")])
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log("Error: Promises failed", err);
+  });
+```
+
+Async/Await : async keywords makes every function to return promise. await is a syntatic sugar for Promise.then()
+
+```js
+const result = async () => {
+  try {
+    const msg1 = await printName("Harsh");
+    const msg2 = await printAge(26);
+    const msg3 = await printWeight("88 KG");
+
+    console.log({ msg1, msg2, msg3 });
+  } catch (error) {
+    console.log("Promises failed:", error)
+  }
+};
+result();
+```
