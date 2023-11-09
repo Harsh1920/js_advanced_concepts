@@ -9,32 +9,33 @@ A closure is a feature in JavaScript where an inner function has access to the o
 ```js
 function numberGenerator() {
   var num = 1;
-  function checkNumber() { 
+  function checkNumber() {
     console.log(num);
   }
   num++;
   return checkNumber;
 }
- 
+
 var number = numberGenerator();
-number(); 
+number();
 ```
 
 **Real Life Example :**
 
-``` js
+```js
 function counterFun() {
-    console.log('clicked!');
-    let count = 0;
-    return function() {
-        count++;
-        document.getElementById("counter-val").innerText = count;
-    }
+  console.log("clicked!");
+  let count = 0;
+  return function () {
+    count++;
+    document.getElementById("counter-val").innerText = count;
+  };
 }
 
 let counter = counterFun();
 console.log(counter());
 ```
+
 HTML Code :
 
 ```html
@@ -42,12 +43,12 @@ HTML Code :
 <p id="counter-val">0</p>
 ```
 
-
 ## 2. Debouncing
 
 Debouncing is a programming technique that limits the frequency of function calls. It is often used to improve browser performance by preventing a function from being called too frequently.
 
 **Real Life Example :**
+
 > A real life example of closuer using Debouncing
 
 ```js
@@ -71,29 +72,30 @@ function triggerAlertMain() {
 
 Throttling is a technique that limits the number of times a function can be called over a given period of time. It is often used to control the frequency at which an event is triggered or a request is sent, in order to prevent overwhelming a system or degrading performance.
 
-``` js
+```js
 let count = 0;
 let isScroll = true;
 function displayCounter() {
-  if(isScroll === true){
+  if (isScroll === true) {
     count++;
-    document.getElementById('counter').innerText = `Counter value is: ${count}`;
+    document.getElementById("counter").innerText = `Counter value is: ${count}`;
     isScroll = false;
-    setTimeout(()=>{
-      isScroll=true;
-    },1000)
+    setTimeout(() => {
+      isScroll = true;
+    }, 1000);
   }
 }
 ```
+
 ## Difference between Debouncing and Throttling?
+
 > Debouncing waits for a certain time before invoking the function again. Throttling limits the number of times the function can be called over a certain period.
 
-**=> Check sandbox for more advance example:** 
-
+**=> Check sandbox for more advance example:**
 
 ## 4. Currying
 
-A function inside another function inside another function returns something.  Currying is a pattern. It uses fundamental concept of Scope and clousers.
+A function inside another function inside another function returns something. Currying is a pattern. It uses fundamental concept of Scope and clousers.
 
 ```js
 function sum(a) {
@@ -110,17 +112,17 @@ console.log(result); // 9
 
 ## 4. Call, Apply and Bind
 
-1) call()
-=> The call() method in JavaScript is a predefined method that can be used to invoke another function with an owner object as an argument.
+1. call()
+   => The call() method in JavaScript is a predefined method that can be used to invoke another function with an owner object as an argument.
 
 ```js
 let person = {
   name: "Harsh",
-  age: '26',
-  location: "Sargasan, Gandhinagar"
-}
+  age: "26",
+  location: "Sargasan, Gandhinagar",
+};
 
-function checkName(){
+function checkName() {
   return this.name;
 }
 
@@ -135,11 +137,10 @@ console.log(person.check()); // Harsh
 
 let result = checkName.call(person);
 console.log(result); // Harsh
-
 ```
 
 2. apply()
-=> The apply() method is similar to the call() method except that it accepts the arguments of the function as an array instead of individual arguments.
+   => The apply() method is similar to the call() method except that it accepts the arguments of the function as an array instead of individual arguments.
 
 ```js
 function.apply(thisValue, [arguments])
@@ -148,29 +149,28 @@ function.apply(thisValue, [arguments])
 ```js
 const numbers = [1, 2, 3];
 
-const sum = function(a, b, c) {
+const sum = function (a, b, c) {
   return a + b + c;
 };
 
 console.log(sum.apply(null, numbers)); // 6
 ```
 
-
 3. bind()
-=> If we don't want to execute function immediately and run later on somewhere else then bind it's good option. We can bind the fucntion and it return a function which runs on the reference to that context.
+   => If we don't want to execute function immediately and run later on somewhere else then bind it's good option. We can bind the fucntion and it return a function which runs on the reference to that context.
 
 ```js
 let newBindFunction = checkName.bind(person); //returns a function
-console.log("Bind result:",newBindFunction());
+console.log("Bind result:", newBindFunction());
 ```
 
 > When to use bind () call () and apply () in JavaScript?
 
-+ Call : binds the this value, invokes the function, and allows you to pass a list of arguments.
+- Call : binds the this value, invokes the function, and allows you to pass a list of arguments.
 
-+ Apply : binds the this value, invokes the function, and allows you to pass arguments as an array.
+- Apply : binds the this value, invokes the function, and allows you to pass arguments as an array.
 
-+ Bind : binds the this value, returns a new function, and allows you to pass in a list of arguments.
+- Bind : binds the this value, returns a new function, and allows you to pass in a list of arguments.
 
 ## 5. Shallow Copy & Deep Copy
 
@@ -204,7 +204,7 @@ let person = {
 
 ```
 
-## 5. Async JavaScript - Callbacks, Promises & APIs, Async/await
+## 6. Async JavaScript - Callbacks, Promises & APIs, Async/await
 
 JavaScript itself is not asynchronous langauge it uses some API from browser or enviroment to achieve asynchronous behaviour.
 
@@ -218,14 +218,14 @@ setTimeout(() => {
 console.log("End");
 ```
 
-Callback : A JavaScript callback is a function which is to be executed after another function has finished execution. A more formal definition would be - Any function that is passed as an argument to another function so that it can be executed in that other function is called as a callback function. 
+Callback : A JavaScript callback is a function which is to be executed after another function has finished execution. A more formal definition would be - Any function that is passed as an argument to another function so that it can be executed in that other function is called as a callback function.
 
 ```js
 // Example of JS synchronous behaviour
 console.log("start");
 function importandAction(username) {
   setTimeout(() => {
-    return `My name is ${username}`
+    return `My name is ${username}`;
   }, 1000);
 }
 const message = importandAction("Hasrh");
@@ -239,13 +239,13 @@ function importandAction2(username, cb) {
     cb(`My name is ${username}`);
   }, 1000);
 }
-const message2 = importandAction2("Harsh", (res)=>{
+const message2 = importandAction2("Harsh", (res) => {
   console.log(res); // My name is Harsh
 });
 console.log("End");
 ```
 
-> Callback Hell (Pyramid of Doom)
+> Callback hell (Pyramid of doom)
 
 ```js
 const msgww = importandAction("Harsh", function (msg) {
@@ -275,16 +275,18 @@ const promiseResult = new Promise((resolve, reject) => {
   }, 2000);
 });
 
-promiseResult.then((res) => {
+promiseResult
+  .then((res) => {
     console.log(res);
-}).catch((err) => {
+  })
+  .catch((err) => {
     console.log(err);
-});
+  });
 
 console.log("end");
 ```
 
-+ Promise.all() : Returns a array of fulfilled promises, works only if promises resolves. If one of them fail, it fails all the other promises. Only work when all promises are fullfiled.
+- Promise.all() : Returns a array of fulfilled promises, works only if promises resolves. If one of them fail, it fails all the other promises. Only work when all promises are fullfiled.
 
 ```js
 Promise.all([printName("Harsh"), printAge(26), printWeight("88 KG")])
@@ -295,7 +297,8 @@ Promise.all([printName("Harsh"), printAge(26), printWeight("88 KG")])
     console.log("Error: Promises failed", err);
   });
 ```
-+ Promise.race() : Returns the first rejected or resolved promise. Works when any one of promises are fullfiled or rejected
+
+- Promise.race() : Returns the first rejected or resolved promise. Works when any one of promises are fullfiled or rejected
 
 ```js
 Promise.race([printName("Jinal"), printAge(26), printWeight("65 KG")])
@@ -307,7 +310,7 @@ Promise.race([printName("Jinal"), printAge(26), printWeight("65 KG")])
   });
 ```
 
-+ Promise.allSettled() : Gives list of all the promises failed and resolved..
+- Promise.allSettled() : Gives list of all the promises failed and resolved..
 
 ```js
 Promise.allSettled([printName("Jinal"), printAge(26), printWeight("88 KG")])
@@ -319,7 +322,7 @@ Promise.allSettled([printName("Jinal"), printAge(26), printWeight("88 KG")])
   });
 ```
 
-+ Promise.any() : Returns only one first resolved promises. If all promises are rejected then it gives an error.
+- Promise.any() : Returns only one first resolved promises. If all promises are rejected then it gives an error.
 
 ```js
 Promise.any([printName("Jinal"), printAge(26), printWeight("88 KG")])
@@ -342,8 +345,60 @@ const result = async () => {
 
     console.log({ msg1, msg2, msg3 });
   } catch (error) {
-    console.log("Promises failed:", error)
+    console.log("Promises failed:", error);
   }
 };
 result();
 ```
+
+## 7. JavaScript Arrays Methods
+
+> https://www.javascripttutorial.net/javascript-array-methods/
+
+## 8. JavaScript String Methods
+
+> https://www.javascripttutorial.net/javascript-string-methods/
+
+## 9. Event Propagation
+
+> When and in which direction event execution will happen knowns as event propagation.
+
+- Event Bubbling : Events propagation bubbles ups from bottom to top.
+- Event Capturing / Trickling : Event propagation from top to down.
+
+```js
+div.addEventListener(
+  "click",
+  () => {
+    alert("div is clicked");
+  },
+  { capture: true } // pass this on third argument
+);
+```
+
+- How to stop event capturing / trickling?
+
+```js
+div.addEventListener("click", () => {
+  e.stopPropagation(); // This line will do the job.
+  alert("div is clicked");
+});
+```
+
+- Event Delegation? : Event delegation is a pattern in JavaScript that
+  allows you to handle events for a group of elements
+  by listening for events on a parent element instead
+  of listening for events on each individual element.
+
+> For better explanation with example check VSCode.
+
+## 10. EventLoop 
+
+- Callback functions and event handlers are first stored in web API enviroment and then transferred to callback queue.
+- Promises and mutation observer(Changes in DOM tree) are stored in web API enviroment then transferred to Microtask queue.
+- Event Loop continously observer call stack and when it gets empty it transfer task to call stack.
+- Microtask is given priority over callbacks tasks.
+- Too many microtasks can generate cause of starvation (Not giving time to callback tasks to executes).
+
+
+
